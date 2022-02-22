@@ -40,8 +40,11 @@ class MainActivity : AppCompatActivity() {
         val buttonRes : Button = findViewById<Button>(R.id.btnRes)
         val buttonCLR : Button = findViewById<Button>(R.id.btnCLR)
 
-        val valor = View.OnClickListener { v -> val btnVal = v as Button
-            newNum.plus(btnVal.toString())
+        val valor = View.OnClickListener { v ->
+            val btnTxt = (v as Button).text.toString()
+            newNum = btnTxt
+            //newNum.plus(btnTxt);
+            //Se intento usar numeros con dos digitos pero el comando "plus" para concatenar los string no funciono
             AssignNum(mostrar)
         }
 
@@ -56,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         button8.setOnClickListener(valor)
         button9.setOnClickListener(valor)
         buttonDec.setOnClickListener(valor)
+        //Se necesita corregir el decimal
 
 
         val operacion = View.OnClickListener { v ->
@@ -79,19 +83,21 @@ class MainActivity : AppCompatActivity() {
         }
         buttonNeg.setOnClickListener {
             val negative = -1 * newNum!!.toInt()
-            newNum.plus(negative.toString())
-        }
+            //newNum.plus(negative.toString())
+            //Nuevamente se intento usar el comando plus pero no funciono
+            newNum = negative.toString()
+        }//Se necesita corregir el negativo
     }
 
     private fun AssignNum(mostrar: EditText)
     {
         if(num1 == 0.0) {
-            num1 = newNum?.toDouble()
+            num1 = newNum!!.toDouble()
             mostrar.append(num1.toString())
         }
         else if(num2 == 0.0)
         {
-            num2 = newNum?.toDouble()
+            num2 = newNum!!.toDouble()
             if(sign != "=")
             {
                 mostrar.append(num2.toString())
